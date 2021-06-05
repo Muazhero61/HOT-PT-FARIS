@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+struct User
+{
+    /* data */
+    char fullName[30];
+    char idNumber[30];
+    char phoneNumber[30];
+    char gender[20];
+};
+
+void registration();
+
+
+int main ()
+{
+    int option;
+
+    printf("\t\tWelcome to Marathon\n");
+    printf("\n");
+
+    printf("\tPress '1' to Register\n");
+    scanf("%d",&option);
+
+    getchar();// catching newline.
+
+    if(option == 1)
+        {
+            system("CLS");
+            registration();
+        }
+    else if(option == 2)
+        {
+            system("CLS");
+            printf("This is under choice 2");
+        }
+    return 0;
+}
+
+void registration()
+{
+    FILE *log;
+
+    log=fopen("register.txt","w");
+    if (log == NULL)
+    {
+        fputs("Error at opening File!", stderr);
+        exit(1);
+    }
+
+    struct User user[5];
+
+    for(int i=0;i<5;i++)
+    {
+        printf("\tWelcome to your Marathon Registration. We need to enter some details for registration.\n");
+        printf("\n\tEnter Name: ");
+        scanf("%s",&user[i].fullName);
+
+        printf("\n\tEnter id Number: ");
+        scanf("%s",&user[i].idNumber);
+
+        printf("\n\tEnter phone Number: ");
+        scanf("%s",&user[i].phoneNumber);
+
+        printf("\n\tEnter Gender: \t 1 - MALE \t 0 - FEMALE :\t");
+
+        int getGender;
+
+        scanf("%d",&getGender);
+        if(getGender==1)
+        {
+            strcpy(user[i].gender,"MALE");
+        }
+        else if(getGender==0)
+        {
+            strcpy(user[i].gender,"FEMALE");
+        }
+
+        printf("\n\tConfirming details......Welcome, %s!\n\n",user[i].fullName);
+        printf("\n\tRegistration Successful!\n");
+        printf("\n\tPress any key to continue...");
+
+        system("CLS");
+
+        fprintf(log,"\n\tName : %s",user[i].fullName);
+
+        fprintf(log,"\n\tID number  : %s",user[i].idNumber);
+
+        fprintf(log,"\n\tPhone number : %s",user[i].phoneNumber);
+
+        fprintf(log,"\n\tGender : %s",user[i].gender);
+
+        fprintf(log,"\n\n");
+    }
+    //fwrite(&user1,sizeof(user1),1,log);
+    //fclose(log);
+    //    login();
+}
